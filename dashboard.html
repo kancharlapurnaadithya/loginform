@@ -1,22 +1,65 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Nexus | Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="dashboard-container">
-        <div class="auth-card">
-            <h1>Dashboard</h1>
-            <div id="user-info">
-                <p><strong>Name:</strong> <span id="user-name">Loading...</span></p>
-                <p><strong>Email:</strong> <span id="user-email">Loading...</span></p>
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+    </div>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div style="display:flex; align-items:center; gap:10px; font-weight:600;">
+                <i class="fas fa-rocket" style="color:var(--primary);"></i> Nexus
             </div>
-            <button id="logout-btn" class="btn-secondary">Logout</button>
+            <nav class="nav-links">
+                <a href="#" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+                <a href="#" class="nav-item"><i class="fas fa-user"></i> Profile</a>
+                <button id="logout-btn" class="nav-item" style="color:var(--error); margin-top:20px;">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="auth-card" style="max-width: 500px;">
+                <div style="display:flex; align-items:center; gap:20px;">
+                    <img id="user-pic" src="https://ui-avatars.com/api/?name=User" style="width:70px; border-radius:50%; border:2px solid var(--primary);">
+                    <div>
+                        <h2 id="user-name">Loading...</h2>
+                        <p id="user-email" style="color:var(--text-dim);"></p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="profile-card" id="tilt-card">
+    <div class="profile-main">
+        <img id="user-pic" src="" alt="Profile">
+        <h2 id="user-name">Loading...</h2>
+        <p id="user-email"></p>
+    </div>
+    <div class="profile-details-grid">
+        <div class="detail-item">
+            <span>Roll Number</span>
+            <p id="user-roll">-</p>
+        </div>
+        <div class="detail-item">
+            <span>Phone</span>
+            <p id="user-phone">-</p>
         </div>
     </div>
+    <button id="logout-btn" class="btn-secondary">Logout</button>
+</div>
+
+    <div id="toast" class="toast"></div>
     <script type="module" src="script.js"></script>
 </body>
 </html>
