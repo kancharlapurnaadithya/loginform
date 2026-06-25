@@ -333,7 +333,7 @@ Ensures proper session termination.
 
 ## Login Page
 
-![Login Page](screenshots/login-page.png)
+(https://github.com/kancharlapurnaadithya/loginform/blob/main/LoginPage.png)
 
 The login page provides users with a secure and user-friendly authentication interface powered by Firebase Authentication and Google Sign-In.
 
@@ -341,7 +341,7 @@ The login page provides users with a secure and user-friendly authentication int
 
 ## Dashboard Page
 
-[![Dashboard Page](screenshots/dashboard-page.png)(https://github.com/kancharlapurnaadithya/loginform/blob/main/Dashboard.png)
+(https://github.com/kancharlapurnaadithya/loginform/blob/main/Dashboard.png)
 
 After successful authentication, users are redirected to the dashboard where their profile information is displayed.
 
