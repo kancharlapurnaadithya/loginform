@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexus Auth | Welcome</title>
+    <title>Nexus Auth | Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
@@ -22,73 +22,58 @@
         <div class="card-header" style="text-align:center;">
             <i class="fas fa-rocket" style="font-size: 2rem; color: var(--primary); margin-bottom:1rem;"></i>
             <h2 id="form-title">Welcome Back</h2>
-            <p style="color:var(--text-dim); margin-bottom:1.5rem;">Premium Auth Experience</p>
+            <p id="form-subtitle" style="color:var(--text-dim); margin-bottom:1.5rem;">Sign in to continue</p>
         </div>
 
         <div id="error-message" style="color: var(--error); text-align: center; margin-bottom: 1rem; font-size: 0.9rem;"></div>
 
-        <!-- LOGIN FORM -->
+        <!-- Login Form -->
         <form id="login-form">
             <div class="input-group">
                 <input type="email" id="login-email" required placeholder="Email Address">
-                <i class="fas fa-envelope input-icon"></i>
             </div>
             <div class="input-group">
                 <input type="password" id="login-password" required placeholder="Password">
-                <i class="fas fa-lock input-icon"></i>
             </div>
             
-            <button type="submit" class="btn-primary" id="login-btn">Sign In</button>
-            <button type="button" id="google-btn" class="btn-primary btn-google">
+            <button type="submit" class="btn-primary">Sign In</button>
+            <div style="text-align:center; margin-top:15px;">
+                <a href="#" id="forgot-password" style="color:var(--text-dim); text-decoration:none; font-size:0.85rem;">Forgot Password?</a>
+            </div>
+            
+            <div class="divider">or</div>
+            
+            <button type="button" id="google-btn" class="btn-secondary">
                 <i class="fab fa-google"></i> Continue with Google
             </button>
             
-            <div class="form-footer">
-                <a href="#" id="forgot-password">Forgot Password?</a>
-                <p>Don't have an account? <span class="toggle-link" id="show-register">Sign Up</span></p>
+            <div style="text-align:center; margin-top:20px; font-size: 0.9rem;">
+                <span style="color:var(--text-dim);">Don't have an account?</span> 
+                <a href="#" id="show-register" style="color:var(--primary); font-weight: 600; text-decoration: none;">Sign Up</a>
             </div>
         </form>
 
-        <!-- REGISTER FORM (Hidden by default) -->
+        <!-- Register Form (Hidden by default) -->
         <form id="register-form" class="hidden">
-            <div class="profile-upload-container">
-                <label for="profile-pic-input" class="upload-label">
-                    <img id="preview-img" src="https://ui-avatars.com/api/?name=New+User&background=6366f1&color=fff" alt="preview">
-                    <div class="upload-overlay"><i class="fas fa-camera"></i></div>
-                </label>
-                <input type="file" id="profile-pic-input" accept="image/*" style="display:none">
-            </div>
-
             <div class="input-group">
                 <input type="text" id="reg-name" required placeholder="Full Name">
-                <i class="fas fa-user input-icon"></i>
-            </div>
-            <div class="input-group">
-                <input type="text" id="reg-roll" required placeholder="Roll Number">
-                <i class="fas fa-id-card input-icon"></i>
-            </div>
-            <div class="input-group">
-                <input type="tel" id="reg-phone" required placeholder="Phone Number">
-                <i class="fas fa-phone input-icon"></i>
             </div>
             <div class="input-group">
                 <input type="email" id="reg-email" required placeholder="Email Address">
-                <i class="fas fa-envelope input-icon"></i>
             </div>
             <div class="input-group">
-                <input type="password" id="reg-password" required placeholder="Password (Min 6 chars)">
-                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="reg-password" required placeholder="Create Password (min 6 chars)">
             </div>
-
-            <button type="submit" class="btn-primary" id="register-btn">Create Account</button>
             
-            <div class="form-footer">
-                <p>Already have an account? <span class="toggle-link" id="show-login">Sign In</span></p>
+            <button type="submit" class="btn-primary">Create Account</button>
+            
+            <div style="text-align:center; margin-top:20px; font-size: 0.9rem;">
+                <span style="color:var(--text-dim);">Already have an account?</span> 
+                <a href="#" id="show-login" style="color:var(--primary); font-weight: 600; text-decoration: none;">Sign In</a>
             </div>
         </form>
     </main>
 
-    <div id="toast" class="toast"></div>
     <script type="module" src="script.js"></script>
 </body>
 </html>
