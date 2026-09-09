@@ -142,9 +142,10 @@ body {
 .toast.show { display: block; animation: slideIn 0.3s ease; }
 @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
 
-
-/* --- Form Toggle & Utilities --- */
-.hidden { display: none !important; }
+/* --- CRITICAL: Form Toggle Utility --- */
+.hidden { 
+    display: none !important; 
+}
 
 .divider {
     display: flex;
@@ -154,11 +155,13 @@ body {
     margin: 1.5rem 0;
     font-size: 0.9rem;
 }
+
 .divider::before, .divider::after {
     content: '';
     flex: 1;
     border-bottom: 1px solid var(--glass-border);
 }
+
 .divider::before { margin-right: .5em; }
 .divider::after { margin-left: .5em; }
 
@@ -168,6 +171,7 @@ body {
     transition: background 0.3s, transform 0.1s;
     display: flex; justify-content: center; align-items: center; gap: 10px;
 }
+
 .btn-secondary:active { transform: scale(0.98); }
 
 /* --- Dashboard Enhancements --- */
