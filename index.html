@@ -4,72 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexus Auth | Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="login-body">
-    <div class="bg-blobs">
-        <div class="blob blob-1"></div>
-        <div class="blob blob-2"></div>
-    </div>
-
-    <div class="theme-switch" id="theme-toggle" style="position:fixed; top:20px; right:20px; cursor:pointer; font-size: 1.5rem;">
+    <div class="theme-switch" id="theme-toggle" title="Toggle Theme">
         <i class="fas fa-moon"></i>
     </div>
 
-    <main class="auth-card" id="tilt-card">
-        <div class="card-header" style="text-align:center;">
-            <i class="fas fa-rocket" style="font-size: 2rem; color: var(--primary); margin-bottom:1rem;"></i>
+    <main class="auth-card">
+        <div class="card-header">
+            <div class="logo-circle">
+                <i class="fas fa-rocket"></i>
+            </div>
             <h2 id="form-title">Welcome Back</h2>
-            <p id="form-subtitle" style="color:var(--text-dim); margin-bottom:1.5rem;">Sign in to continue</p>
+            <p id="form-subtitle">Sign in to your account</p>
         </div>
 
-        <div id="error-message" style="text-align: center; margin-bottom: 1rem; font-size: 0.9rem; min-height: 20px;"></div>
+        <div id="error-message"></div>
 
         <!-- Login Form -->
         <form id="login-form">
             <div class="input-group">
-                <input type="email" id="login-email" required placeholder="Email Address">
+                <label for="login-email">Email Address</label>
+                <input type="email" id="login-email" required placeholder="name@company.com">
             </div>
             <div class="input-group">
-                <input type="password" id="login-password" required placeholder="Password">
+                <label for="login-password">Password</label>
+                <input type="password" id="login-password" required placeholder="••••••••">
+            </div>
+            
+            <div class="form-actions">
+                <a href="#" id="forgot-password" class="text-link">Forgot Password?</a>
             </div>
             
             <button type="submit" class="btn-primary">Sign In</button>
-            <div style="text-align:center; margin-top:15px;">
-                <a href="#" id="forgot-password" style="color:var(--text-dim); text-decoration:none; font-size:0.85rem; transition: color 0.3s;">Forgot Password?</a>
-            </div>
             
-            <div class="divider">or</div>
+            <div class="divider"><span>or</span></div>
             
             <button type="button" id="google-btn" class="btn-secondary">
-                <i class="fab fa-google"></i> Continue with Google
+                <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" width="18">
+                Continue with Google
             </button>
             
-            <div style="text-align:center; margin-top:20px; font-size: 0.9rem;">
-                <span style="color:var(--text-dim);">Don't have an account?</span> 
-                <a href="#" id="show-register" style="color:var(--primary); font-weight: 600; text-decoration: none;">Sign Up</a>
+            <div class="footer-text">
+                Don't have an account? <a href="#" id="show-register" class="text-link font-semibold">Sign Up</a>
             </div>
         </form>
 
-        <!-- Register Form (Hidden by default) -->
+        <!-- Register Form -->
         <form id="register-form" class="hidden" style="display: none;">
             <div class="input-group">
-                <input type="text" id="reg-name" required placeholder="Full Name">
+                <label for="reg-name">Full Name</label>
+                <input type="text" id="reg-name" required placeholder="John Doe">
             </div>
             <div class="input-group">
-                <input type="email" id="reg-email" required placeholder="Email Address">
+                <label for="reg-email">Email Address</label>
+                <input type="email" id="reg-email" required placeholder="name@company.com">
             </div>
             <div class="input-group">
-                <input type="password" id="reg-password" required placeholder="Create Password (min 6 chars)">
+                <label for="reg-password">Password</label>
+                <input type="password" id="reg-password" required placeholder="Min. 6 characters">
             </div>
             
-            <button type="submit" class="btn-primary">Create Account</button>
+            <button type="submit" class="btn-primary" style="margin-top: 1rem;">Create Account</button>
             
-            <div style="text-align:center; margin-top:20px; font-size: 0.9rem;">
-                <span style="color:var(--text-dim);">Already have an account?</span> 
-                <a href="#" id="show-login" style="color:var(--primary); font-weight: 600; text-decoration: none;">Sign In</a>
+            <div class="footer-text">
+                Already have an account? <a href="#" id="show-login" class="text-link font-semibold">Sign In</a>
             </div>
         </form>
     </main>
