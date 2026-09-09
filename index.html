@@ -25,7 +25,7 @@
             <p id="form-subtitle" style="color:var(--text-dim); margin-bottom:1.5rem;">Sign in to continue</p>
         </div>
 
-        <div id="error-message" style="color: var(--error); text-align: center; margin-bottom: 1rem; font-size: 0.9rem;"></div>
+        <div id="error-message" style="text-align: center; margin-bottom: 1rem; font-size: 0.9rem; min-height: 20px;"></div>
 
         <!-- Login Form -->
         <form id="login-form">
@@ -38,7 +38,7 @@
             
             <button type="submit" class="btn-primary">Sign In</button>
             <div style="text-align:center; margin-top:15px;">
-                <a href="#" id="forgot-password" style="color:var(--text-dim); text-decoration:none; font-size:0.85rem;">Forgot Password?</a>
+                <a href="#" id="forgot-password" style="color:var(--text-dim); text-decoration:none; font-size:0.85rem; transition: color 0.3s;">Forgot Password?</a>
             </div>
             
             <div class="divider">or</div>
@@ -54,7 +54,7 @@
         </form>
 
         <!-- Register Form (Hidden by default) -->
-        <form id="register-form" class="hidden">
+        <form id="register-form" class="hidden" style="display: none;">
             <div class="input-group">
                 <input type="text" id="reg-name" required placeholder="Full Name">
             </div>
