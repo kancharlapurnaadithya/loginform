@@ -1,6 +1,8 @@
 import { auth, provider } from './firebase-config.js';
 import { 
     signInWithEmailAndPassword, 
+    createUserWithEmailAndPassword,
+    updateProfile,
     signInWithPopup, 
     onAuthStateChanged, 
     signOut,
@@ -9,108 +11,152 @@ import {
 
 // --- DOM Elements ---
 const loginForm = document.getElementById('login-form');
+const registerForm = document.getElementById('register-form');
+const showRegisterBtn = document.getElementById('show-register');
+const showLoginBtn = document.getElementById('show-login');
+const formTitle = document.getElementById('form-title');
+const formSubtitle = document.getElementById('form-subtitle');
 const googleBtn = document.getElementById('google-btn');
 const logoutBtn = document.getElementById('logout-btn');
 const forgotPw = document.getElementById('forgot-password');
 const errorMsg = document.getElementById('error-message');
 
-// --- 1. Route Protection & Auth State ---
-// This runs automatically whenever the user logs in or out
+// --- 1. Form UI Toggling ---
+if (showRegisterBtn && showLoginBtn) {
+    showRegisterBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        loginForm.classList.add('hidden');
+        registerForm.classList.remove('hidden');
+        formTitle.textContent = "Create Account";
+        formSubtitle.textContent = "Join Nexus today";
+        errorMsg.textContent = ""; 
+    });
+
+    showLoginBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        registerForm.classList.add('hidden');
+        loginForm.classList.remove('hidden');
+        formTitle.textContent = "Welcome Back";
+        formSubtitle.textContent = "Sign in to continue";
+        errorMsg.textContent = ""; 
+    });
+}
+
+// --- 2. Route Protection & Auth State ---
 onAuthStateChanged(auth, (user) => {
     const isDashboard = window.location.pathname.includes('dashboard.html');
     
     if (user) {
-        // If user is logged in and on Login page, move to Dashboard
         if (!isDashboard) {
             window.location.href = 'dashboard.html';
         } else {
-            // Update UI with Firebase Data
-            document.getElementById('user-name').textContent = user.displayName || "User";
+            const displayName = user.displayName || "User";
+            document.getElementById('user-name').textContent = displayName;
+            document.getElementById('user-firstname').textContent = displayName.split(" ")[0];
             document.getElementById('user-email').textContent = user.email;
+            
+            const picUrl = user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(displayName)}&background=6366f1&color=fff`;
+            document.getElementById('user-pic').src = picUrl;
         }
     } else {
-        // If no user and trying to access dashboard, kick back to login
         if (isDashboard) {
             window.location.href = 'index.html';
         }
     }
 });
 
-// --- 2. Email/Password Login ---
+// --- 3. Manual Email/Password Sign Up ---
+if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('reg-name').value;
+        const email = document.getElementById('reg-email').value;
+        const password = document.getElementById('reg-password').value;
+
+        try {
+            errorMsg.style.color = "var(--text-main)";
+            errorMsg.textContent = "Creating account...";
+            
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            // Update profile with the provided name
+            await updateProfile(userCredential.user, { displayName: name });
+            
+            // onAuthStateChanged will handle the redirect
+        } catch (error) {
+            errorMsg.style.color = "var(--error)";
+            errorMsg.textContent = error.message.replace("Firebase: ", "");
+        }
+    });
+}
+
+// --- 4. Manual Email/Password Login ---
 if (loginForm) {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
-        const email = e.target.email.value;
-        const password = e.target.password.value;
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
 
         try {
-            errorMsg.textContent = "Logging in..."; // UI Feedback
+            errorMsg.style.color = "var(--text-main)";
+            errorMsg.textContent = "Logging in...";
             await signInWithEmailAndPassword(auth, email, password);
         } catch (error) {
-            console.error(error.code);
-            // Friendly error messages
+            errorMsg.style.color = "var(--error)";
             if (error.code === 'auth/invalid-credential') {
-                errorMsg.textContent = "Wrong email or password.";
+                errorMsg.textContent = "Invalid email or password.";
             } else {
-                errorMsg.textContent = "Error: " + error.message;
+                errorMsg.textContent = error.message.replace("Firebase: ", "");
             }
         }
     });
 }
 
-// --- 3. Google Login ---
-// Updated Google Login Logic
+// --- 5. Google Login ---
 if (googleBtn) {
     googleBtn.addEventListener('click', async () => {
         try {
-            console.log("Google Sign-In started..."); // Debugging kosam
             await signInWithPopup(auth, provider);
         } catch (error) {
-            console.error("Full Error Object:", error); // Error ento console lo kanipisthundi
-            
-            // Specifically check for this error
-            if (error.code === 'auth/operation-not-allowed') {
-                errorMsg.textContent = "Google Sign-In is not enabled in Firebase Console.";
-            } else {
-                errorMsg.textContent = "Google Sign-In failed: " + error.message;
-            }
+            errorMsg.style.color = "var(--error)";
+            errorMsg.textContent = "Google Sign-In failed.";
         }
     });
 }
 
-// --- 4. Forgot Password ---
-// 4. Forgot Password Fix
+// --- 6. Forgot Password ---
 if (forgotPw) {
     forgotPw.addEventListener('click', async (event) => {
-        // PREVENT page from refreshing (the # in <a href="#"> causes refresh)
         event.preventDefault(); 
         
-        const emailInput = document.getElementById('email');
-        const email = emailInput.value;
+        const emailInput = document.getElementById('login-email');
+        const email = emailInput.value.trim();
 
         if (!email) {
-            errorMsg.textContent = "Error: Please type your email address first.";
-            emailInput.style.border = "2px solid red"; // Visual feedback
+            errorMsg.style.color = "var(--error)";
+            errorMsg.textContent = "Please type your email address first to reset password.";
+            emailInput.style.borderColor = "var(--error)"; 
             return;
         }
 
         try {
+            errorMsg.style.color = "var(--text-main)";
+            errorMsg.textContent = "Sending reset link...";
             await sendPasswordResetEmail(auth, email);
-            alert("A password reset link has been sent to: " + email);
-            errorMsg.textContent = ""; 
+            errorMsg.style.color = "var(--success)";
+            errorMsg.textContent = `A password reset link has been sent to ${email}`;
+            emailInput.style.borderColor = "var(--glass-border)"; 
         } catch (error) {
-            console.error("Reset Error Code:", error.code);
-            errorMsg.textContent = "Error: " + error.message;
+            errorMsg.style.color = "var(--error)";
+            errorMsg.textContent = error.message.replace("Firebase: ", "");
         }
     });
 }
 
-// --- 5. Logout ---
+// --- 7. Logout ---
 if (logoutBtn) {
     logoutBtn.addEventListener('click', async () => {
         try {
             await signOut(auth);
-            window.location.href = 'index.html';
         } catch (error) {
             console.error("Logout Error:", error);
         }
