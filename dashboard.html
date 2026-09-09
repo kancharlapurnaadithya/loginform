@@ -15,51 +15,58 @@
 
     <div class="dashboard-layout">
         <aside class="sidebar">
-            <div style="display:flex; align-items:center; gap:10px; font-weight:600;">
+            <div style="display:flex; align-items:center; gap:10px; font-weight:600; font-size: 1.2rem; margin-bottom: 2rem;">
                 <i class="fas fa-rocket" style="color:var(--primary);"></i> Nexus
             </div>
             <nav class="nav-links">
-                <a href="#" class="nav-item active"><i class="fas fa-home"></i> Home</a>
+                <a href="#" class="nav-item active"><i class="fas fa-chart-pie"></i> Overview</a>
                 <a href="#" class="nav-item"><i class="fas fa-user"></i> Profile</a>
-                <button id="logout-btn" class="nav-item" style="color:var(--error); margin-top:20px;">
+                <a href="#" class="nav-item"><i class="fas fa-cog"></i> Settings</a>
+                <button id="logout-btn" class="nav-item" style="color:var(--error); margin-top:auto;">
                     <i class="fas fa-sign-out-alt"></i> Logout
                 </button>
             </nav>
         </aside>
 
         <main class="main-content">
-            <div class="auth-card" style="max-width: 500px;">
-                <div style="display:flex; align-items:center; gap:20px;">
-                    <img id="user-pic" src="https://ui-avatars.com/api/?name=User" style="width:70px; border-radius:50%; border:2px solid var(--primary);">
-                    <div>
-                        <h2 id="user-name">Loading...</h2>
-                        <p id="user-email" style="color:var(--text-dim);"></p>
+            <header class="dashboard-header">
+                <div>
+                    <h1 style="font-size: 1.8rem; font-weight: 600;">Welcome back, <span id="user-firstname">User</span> 👋</h1>
+                    <p style="color: var(--text-dim);">Here is what's happening with your account today.</p>
+                </div>
+            </header>
+
+            <div class="dashboard-grid">
+                <!-- Profile Card -->
+                <div class="auth-card profile-card">
+                    <div style="display:flex; align-items:center; gap:20px; margin-bottom: 20px;">
+                        <img id="user-pic" src="https://ui-avatars.com/api/?name=User" style="width:70px; height:70px; border-radius:50%; border:2px solid var(--primary); object-fit: cover;">
+                        <div>
+                            <h2 id="user-name" style="font-size: 1.2rem;">Loading...</h2>
+                            <p id="user-email" style="color:var(--text-dim); font-size: 0.9rem; word-break: break-all;"></p>
+                        </div>
                     </div>
+                    <div class="status-badge">
+                        <i class="fas fa-check-circle" style="color: var(--success);"></i> Account Active
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="auth-card stat-card">
+                    <div class="stat-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Security Level</h3>
+                    <p style="color: var(--success); font-size: 1.2rem; font-weight: 600;">Excellent</p>
+                </div>
+                
+                <div class="auth-card stat-card">
+                    <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Last Login</h3>
+                    <p style="color: var(--text-main); font-size: 1.2rem; font-weight: 600;">Just now</p>
                 </div>
             </div>
         </main>
     </div>
 
-    <div class="profile-card" id="tilt-card">
-    <div class="profile-main">
-        <img id="user-pic" src="" alt="Profile">
-        <h2 id="user-name">Loading...</h2>
-        <p id="user-email"></p>
-    </div>
-    <div class="profile-details-grid">
-        <div class="detail-item">
-            <span>Roll Number</span>
-            <p id="user-roll">-</p>
-        </div>
-        <div class="detail-item">
-            <span>Phone</span>
-            <p id="user-phone">-</p>
-        </div>
-    </div>
-    <button id="logout-btn" class="btn-secondary">Logout</button>
-</div>
-
-    <div id="toast" class="toast"></div>
     <script type="module" src="script.js"></script>
 </body>
 </html>
