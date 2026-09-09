@@ -21,12 +21,16 @@ const logoutBtn = document.getElementById('logout-btn');
 const forgotPw = document.getElementById('forgot-password');
 const errorMsg = document.getElementById('error-message');
 
-// --- 1. Form UI Toggling ---
 if (showRegisterBtn && showLoginBtn) {
     showRegisterBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        // Hide Login, Show Register
         loginForm.classList.add('hidden');
+        loginForm.style.display = 'none';
+        
         registerForm.classList.remove('hidden');
+        registerForm.style.display = 'block';
+        
         formTitle.textContent = "Create Account";
         formSubtitle.textContent = "Join Nexus today";
         errorMsg.textContent = ""; 
@@ -34,8 +38,13 @@ if (showRegisterBtn && showLoginBtn) {
 
     showLoginBtn.addEventListener('click', (e) => {
         e.preventDefault();
+        // Hide Register, Show Login
         registerForm.classList.add('hidden');
+        registerForm.style.display = 'none';
+        
         loginForm.classList.remove('hidden');
+        loginForm.style.display = 'block';
+        
         formTitle.textContent = "Welcome Back";
         formSubtitle.textContent = "Sign in to continue";
         errorMsg.textContent = ""; 
