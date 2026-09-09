@@ -171,3 +171,32 @@ if (logoutBtn) {
         }
     });
 }
+
+// --- Theme Toggle Logic ---
+const themeToggleBtn = document.getElementById('theme-toggle');
+const htmlElement = document.documentElement;
+const themeIcon = themeToggleBtn.querySelector('i');
+
+// Check local storage for saved theme
+const savedTheme = localStorage.getItem('nexus-theme') || 'dark';
+htmlElement.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggleBtn.addEventListener('click', () => {
+    const currentTheme = htmlElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    
+    htmlElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('nexus-theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    if (theme === 'light') {
+        themeIcon.classList.remove('fa-moon');
+        themeIcon.classList.add('fa-sun');
+    } else {
+        themeIcon.classList.remove('fa-sun');
+        themeIcon.classList.add('fa-moon');
+    }
+}
